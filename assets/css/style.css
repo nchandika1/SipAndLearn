@@ -1,0 +1,94 @@
+
+
+.navbar {
+	background-color: #000000;
+	align-content: center;
+
+}
+
+
+body {
+	background-image: url("assets/images/tweed_@2X.png")
+}
+
+h1 {
+	color: #888888;
+	font-family: 'Playfair Display', serif;
+
+
+}
+
+.container {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+.rowspace {
+		flex: 1;
+}
+
+
+
+h3 {
+	font-family: 'Muli', sans-serif;
+	padding: 10px;
+	padding-top: 30px;
+	color: #4b0c09;
+}
+
+.nav-tabs {
+	background: #000000;
+}
+
+.map {
+    width: 450px;
+    margin-right: 0 auto;
+    height: 700px;
+/*    background-size: cover;
+*/    margin: 0 auto;
+    background-image: url("assets/images/californiawinemap.gif")
+
+
+}
+
+
+.MapImage {
+	background-image: url("assets/images/californiawinemap.gif")
+}
+
+.sidebar {
+	background-color: #444444;
+}
+
+/*.row {
+	font-color: #fff;
+}*/
+
+
+.col-5 {
+	background: #eedea3;
+	margin-left: 0 auto;
+	width: 475px;
+	
+}
+
+
+.col-4 {
+	background: #d6cece;
+	margin-left: 0 auto;
+	height: 0 auto;
+}
+
+
+.space {
+	margin-top: 20px;
+}
+
+.title {
+	margin-left: 450px;
+}
+
+.footer {
+	background-color: #000;
+}
