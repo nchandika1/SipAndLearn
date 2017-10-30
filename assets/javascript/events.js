@@ -1,17 +1,17 @@
-var wine_counties = {"Napa County" : ["Napa_Valley_AVA","Napa County, CA"],
-					"Lake County" : ["Lake_County,_California", "Lake County, CA"],
-					"Sonoma County" : ["Sonoma_County,_California", "Sonoma County, CA"],
-					"Alameda County" : ["Livermore_Valley_AVA", "Alameda County, CA"],
-					"Mendocino County": ["Mendocino_County_wine", "Mendocino County, CA"],
-					"Riverside County" : ["Temecula_Valley_AVA", "Reiverside County, CA"],
-					"San Diego County" : ["San_Pasqual_Valley_AVA", "San Diego County, CA"],
-					"Santa Cruz County" : ["Santa_Cruz_Mountains_AVA", "Santa Cruz County, CA"],
+var wine_counties = {"Napa" : ["Napa_Valley_AVA","Napa County, CA"],
+					"Lake" : ["Lake_County,_California", "Lake County, CA"],
+					"Sonoma" : ["Sonoma_County,_California", "Sonoma County, CA"],
+					"Alameda" : ["Livermore_Valley_AVA", "Alameda County, CA"],
+					"Mendocino": ["Mendocino_County_wine", "Mendocino County, CA"],
+					"Riverside" : ["Temecula_Valley_AVA", "Reiverside County, CA"],
+					"San Diego" : ["San_Pasqual_Valley_AVA", "San Diego County, CA"],
+					"Santa Cruz" : ["Santa_Cruz_Mountains_AVA", "Santa Cruz County, CA"],
 					"Santa Clara" : ["Santa_Clara_Valley_AVA", "Santa Clara County, CA"],
 					"San Luis Obispo" : ["San_Luis_Obispo_County,_California", "San Luis Obispo County, CA"],
 					"Marin" : ["Marin_County,_California", "Marin County, CA"],
-					"Sierra" : ["Sierra_County,_California", "Napa County, CA"],
-					"Montery, Monterey_AVA" : ["Monterey_County,_California", "Monterey County, CA"],
-					"Imperial County" : ["Imperial_Valley", "Imperial, CA"] 
+					"Sierra" : ["Sierra_County,_California", "Sierra County, CA"],
+					"Monterey" : ["Monterey_County,_California", "Monterey County, CA"],
+					"Imperial" : ["Imperial_Valley", "Imperial, CA"]
 					}
 
 const TOTAL_EVENTS = 5;
@@ -44,6 +44,7 @@ function getVenueNameFromId(venueId) {
 // Display wine related events based on EventBrite APIs
 // Note that it returns venue, cateogry as Ids.  Need a separate AJAX call to convert those Ids to strings.
 function displayWineEvents(county) {
+	console.log("County events = " + county);
 	var searchStr = wine_counties[county][1];
 	console.log(searchStr);
 	$.ajax({
@@ -83,9 +84,13 @@ function displayWineEvents(county) {
 	      	} else {
 	         	var price = "$$";
 	      	}
+
+					//addition form work done at naga's house 10/29 tc
+
+					var eventId = events[i].id;
 	      	// Hook up HTML code here
     		// Remove the following code once the correct HTML is in place
-    		/*
+
 	      	var venueStr = getVenueNameFromId(venue);
 	      	console.log(venueStr);
 
@@ -93,6 +98,42 @@ function displayWineEvents(county) {
 	      	aTag.attr("href", url);
 	      	aTag.attr("target", "_blank");
 	      	aTag.html("<strong>"+title+"</strong");
+
+
+					aTag.attr("data-imageurl", image);
+					aTag.attr("data-localtime", localTime);
+					aTag.attr("data-title", title);
+					aTag.attr("data-price", price);
+					aTag.attr("data-eventid", eventId);
+
+
+					//click handler
+					aTag.on("click", function() {
+
+								var url = $(this).attr('href'); // Get url from the <a> href attribute
+    						window.open(url,"_blank");
+
+								var imgurl = $(this).attr('data-imageurl');
+
+								console.log("Link clicked: " + url);
+
+								var eId = $(this).attr("data-eventid");
+								var eTitle = $(this).attr('data-title');
+								var eUrl = url;
+								var eLocalTime = $(this).attr("data-localtime");
+								var ePrice = $(this).attr("data-price");
+								var eImage = $(this).attr("data-imageurl");
+
+								//construct the event data
+								var eventData = makeEventData(eId, eTitle, eUrl, eLocalTime, ePrice, eImage);
+
+								//add to record set
+								addEventRecord(eventData);
+
+								//saveto database
+								saveEvent();
+
+					});
 
 	      	var imgTag = $("<img>");
 	      	imgTag.attr("src", image);
@@ -103,7 +144,11 @@ function displayWineEvents(county) {
 	      	wineDiv.append("<p><strong>" + venueStr + "</strong></p>")
 	      	wineDiv.append(imgTag);
 	      	wineDiv.append("<br><br>");
-	      	*/
+
+
+
+					//----  end addition
+
 	   	}
 	});
 }
@@ -111,6 +156,7 @@ function displayWineEvents(county) {
 // Function to use Wiki AJAX APIs that returns the county information
 // Display wine region information based on Wiki APIs
 function displayWineInformation(county) {
+	console.log("County = " + county);
 	var searchStr = wine_counties[county][0];
     $.ajax({
         url: "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles=" + searchStr,

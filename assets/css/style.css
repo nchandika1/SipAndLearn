@@ -8,7 +8,9 @@
 
 
 body {
-	background-image: url("assets/images/tweed_@2X.png")
+	/*  This file was not found tc 10/29 */
+	/*background-image: url("assets/images/tweed_@2X.png");*/
+	background-image: url("./../images/wine.jpg");
 }
 
 h1 {
@@ -47,14 +49,17 @@ h3 {
     height: 700px;
 /*    background-size: cover;
 */    margin: 0 auto;
-    background-image: url("assets/images/californiawinemap.gif")
+
+	/*  This file was not found tc 10/29 */
+    /*background-image: url("assets/images/californiawinemap.gif")*/
 
 
 }
 
 
 .MapImage {
-	background-image: url("assets/images/californiawinemap.gif")
+	/*  This file was not found tc 10/29 */
+	/*background-image: url("assets/images/californiawinemap.gif")*/
 }
 
 .sidebar {
@@ -70,7 +75,7 @@ h3 {
 	background: #eedea3;
 	margin-left: 0 auto;
 	width: 475px;
-	
+
 }
 
 

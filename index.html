@@ -4,7 +4,7 @@
 	<title>Sip amp Learn</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
+
   <!--Bootstrap CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
@@ -20,7 +20,9 @@
   <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
     <nav class="navbar navbar-light bg-faded">
       <a class="navbar-brand" href="#">
+				<!--  file not there... tc 10/29
         <img src="assets/images/sip_logo-01.png" width="300" height="100" alt="">
+				-->
       </a>
     </nav>
   </nav>
@@ -29,11 +31,11 @@
   <div class="container">
     <div class="row space">
       <div class="col-md-5">
-          <div class="map">
-            <h1 class="MapImage"></h1>
-            <p></p>
+				<!-- modified by TomC 10/29/2017 - 'map' id required by google map api -->
+          <div id='map' class="map">
+
           </div>
-      </div>  
+      </div>
 
       <div class="col-md-4">
         <span class="border-top-0"></span>
@@ -73,6 +75,8 @@
           <div class="card-body">
             <h4 class="card-title">Local Events Near You</h4>
             <p class="card-text">Showing {0} Results.</p>
+						<!-- container div for events tc 10/30 -->
+						<div id="wine-events">  <div>
           </div>
         </div>
       </div>
@@ -82,15 +86,63 @@
   <!--Footer where saved data is stored -->
   <footer class="footer">
     <div class="footer-body">
-      <span class="text">SAVED SEARCHES HERE</span>  
+      <span class="text">SAVED SEARCHES HERE</span>
+				<!-- added by TomC 10/29/2017 -->
+	      <div id="authControlBox" >
+	            <button id="loginButton" type="button">Login With Google</button>
+							<!-- TODO hide when not logged in -->
+	            <button id="logoutButton" type="button">Logout</button>
+	        </div>
+				<!-- saved event display -->
+				<div id="savedEventDisplay">
+				</div>
+
     </div>
  </footer>
 
   <!--JavaScript -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<!-- using local jquery min (not slim - ajax error) tc 10/30 -->
+  <script type="text/javascript" src="./assets/javascript/jquery-3.2.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
-  <script type="text/javascript" src="./assets/js/events.js"></script>
+	<!-- added by TomC 10/29/2017 -->
+  <!--  Tom's Script requirements - To be placed just above closing </body>  -->
+    <!-- TODO remove if already referenced -->
+    <!-- <script type="text/javascript" src="./assets/javascript/jquery-3.2.1.min.js"></script> -->
+    <script type="text/javascript" src="./assets/javascript/moment.min.js"></script>
+
+    <!--  Reference custom scripts -->
+    <script type="text/javascript" src="./assets/javascript/mapData.js"></script>
+    <script type="text/javascript" src="./assets/javascript/mapFunctions.js"></script>
+
+
+    <!-- Google map required script with callback reference -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjv3Wsnd8If6mQolOOcjhwkHH-JDe22_E&callback=initMap" async defer></script>
+
+    <!--  Firebase Database connection section -->
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBvJD1eAlfKYEEr7iJy8xPURoN73RwBM8o",
+        authDomain: "sipandlearnuserevents.firebaseapp.com",
+        databaseURL: "https://sipandlearnuserevents.firebaseio.com",
+        projectId: "sipandlearnuserevents",
+        storageBucket: "",
+        messagingSenderId: "58169801963"
+      };
+      firebase.initializeApp(config);
+
+      // google login provider
+      var provider = new firebase.auth.GoogleAuthProvider();
+
+    </script>
+
+		<script type="text/javascript" src="./assets/javascript/userData.js"></script>
+    <script type="text/javascript" src="./assets/javascript/saveEvents.js"></script>
+    <script type="text/javascript" src="./assets/javascript/events.js"></script>
+
+
 </body>
 </html>
