@@ -19,11 +19,8 @@
   <!-- Just an image -->
   <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
     <nav class="navbar navbar-light bg-faded">
-      <a class="navbar-brand" href="#">
-				<!--  file not there... tc 10/29
-        <img src="assets/images/sip_logo-01.png" width="300" height="100" alt="">
-				-->
-      </a>
+      <img class="navbar-brand" src="./assets/images/sip_logo-01.png" width="300" height="100" alt="Sip Learn">
+
     </nav>
   </nav>
 
@@ -44,8 +41,8 @@
         <span class="border-left-1"></span>
         <h3>MORE ABOUT WINES</h3>
 
-        <!--Table to Dynaimically Pull Wine Data -->
-    		<div id='wine-data'></div>
+        <!--Table to Dyanimically Pull Wine Data -->
+          <div id = "wine-data"></div>
       </div>
 
       <!--Panel-->
@@ -54,9 +51,9 @@
           <h3 class="card-header primary-color white-text">LOCAL EVENTS</h3>
           <div class="card-body">
             <h4 class="card-title">Local Events Near You</h4>
-            <p class="card-text">Showing {0} Results.</p>
-						<!-- container div for events tc 10/30 -->
-						<div id="wine-events">  <div>
+<!--             <p class="card-text">Showing {0} Results.</p>
+ -->						<!-- container div for events tc 10/30 -->
+						<div id="wine-events">Click On May to Show Events  <div>
           </div>
         </div>
       </div>
@@ -113,17 +110,13 @@
         messagingSenderId: "58169801963"
       };
       firebase.initializeApp(config);
-
       // google login provider
       var provider = new firebase.auth.GoogleAuthProvider();
-
     </script>
 
 		<script type="text/javascript" src="./assets/javascript/userData.js"></script>
     <script type="text/javascript" src="./assets/javascript/saveEvents.js"></script>
     <script type="text/javascript" src="./assets/javascript/events.js"></script>
-
-		
 
 
 </body>

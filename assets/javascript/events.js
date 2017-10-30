@@ -65,6 +65,7 @@ function displayWineEvents(county) {
 	  	if (events.length < TOTAL_EVENTS) {
 	    	totalEventsToDisplay = events.length;
 	    }
+      	$("#wine-events").empty();
 
 	   	for (var i=0; i<totalEventsToDisplay; i++) {
 
@@ -97,9 +98,7 @@ function displayWineEvents(county) {
 	      	var aTag = $("<a>");
 	      	aTag.attr("href", url);
 	      	aTag.attr("target", "_blank");
-
 	      	aTag.html("<strong>"+title+"</strong");
-
 
 					aTag.attr("data-imageurl", image);
 					aTag.attr("data-localtime", localTime);
@@ -138,13 +137,18 @@ function displayWineEvents(county) {
 
 	      	var imgTag = $("<img>");
 	      	imgTag.attr("src", image);
+	      	imgTag.attr("class", "eventImage");
 
+
+	      	var timeTag = $("<p>");
+	      	timeTag.attr("class", "time");
+	      	timeTag.text(moment(localTime).format('LLL'));
 	      	var wineDiv = $("#wine-events");
-	      	wineDiv.append(aTag);
-	      	wineDiv.append("<p><strong>" + moment(localTime).format('LLL') + "</strong></p>");
-	      	wineDiv.append("<p><strong>" + venueStr + "</strong></p>");
 	      	wineDiv.append(imgTag);
-	      	wineDiv.append("<br><br>");
+	      	wineDiv.append(aTag);
+	      	wineDiv.append(timeTag);
+	      	// wineDiv.append("<p><strong>" + venueStr + "</strong></p>");
+	      	// wineDiv.append("<br><br>"); cw removed hard break to improve spacing
 
 
 
@@ -161,18 +165,20 @@ function displayWineInformation(county) {
 	var searchStr = wine_counties[county][0];
     $.ajax({
         url: "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles=" + searchStr,
-        data: {exchars: 500},
         dataType: "jsonp",
         method: "GET"
     }).done(function(response) {
     	console.log(response);
+    	$("#wine-data").empty();
     	$.each(response.query.pages, function(i, item) {
-    		// Hook up HTML code here
-    		// Remove the following code once the correct HTML is in place
-
+    		var url = "https://en.wikipedia.org/wiki/" + searchStr;
             var wineDiv = $("#wine-data");
-            wineDiv.append($("<h4>").text(item.title));
-    		    wineDiv.append(item.extract);
+            var aTag = $("<a>");
+            aTag.attr("href", url);
+            aTag.attr("target", "_blank");
+            aTag.html("<h4>" + item.title + "</h4");
+            wineDiv.append(aTag);
+    		wineDiv.append(item.extract);
 
         });
     });
