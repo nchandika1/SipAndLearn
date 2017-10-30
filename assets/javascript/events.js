@@ -97,6 +97,7 @@ function displayWineEvents(county) {
 	      	var aTag = $("<a>");
 	      	aTag.attr("href", url);
 	      	aTag.attr("target", "_blank");
+
 	      	aTag.html("<strong>"+title+"</strong");
 
 
@@ -138,10 +139,10 @@ function displayWineEvents(county) {
 	      	var imgTag = $("<img>");
 	      	imgTag.attr("src", image);
 
-	      	var wineDiv = $("#wine-data");
+	      	var wineDiv = $("#wine-events");
 	      	wineDiv.append(aTag);
 	      	wineDiv.append("<p><strong>" + moment(localTime).format('LLL') + "</strong></p>");
-	      	wineDiv.append("<p><strong>" + venueStr + "</strong></p>")
+	      	wineDiv.append("<p><strong>" + venueStr + "</strong></p>");
 	      	wineDiv.append(imgTag);
 	      	wineDiv.append("<br><br>");
 
@@ -168,11 +169,11 @@ function displayWineInformation(county) {
     	$.each(response.query.pages, function(i, item) {
     		// Hook up HTML code here
     		// Remove the following code once the correct HTML is in place
-    		/*
+
             var wineDiv = $("#wine-data");
             wineDiv.append($("<h4>").text(item.title));
-    		wineDiv.append(item.extract);
-    		*/
+    		    wineDiv.append(item.extract);
+
         });
     });
 }

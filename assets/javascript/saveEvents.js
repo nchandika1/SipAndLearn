@@ -5,6 +5,10 @@ var database = null;
 //placeholder for non-auth
 var currentUser = {uid: "placeHolderUser"}; //null;
 
+/*
+  User Saved events
+ */
+var userSavedEvents = null;
 
 //document loded event via jquery
 $(document).ready(initUserEvents);
@@ -22,7 +26,9 @@ function initUserEvents() {
   $("#logoutButton").on("click", logoutHandler);
 
   //init default empty record set
-  userSavedEvents = initEmptyUserDataObject();
+  //No Return on this!
+  initEmptyUserDataObject();
+
 
   //firebase user logged in/out
   // firebase.auth().onAuthStateChanged(authStateChange);
@@ -44,6 +50,8 @@ function initUserEvents() {
  * @return {[type]}           [description]
  */
 function saveEvent() {
+
+  console.log("saving event");
 
   if(currentUser !== null) {
 
