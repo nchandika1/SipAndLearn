@@ -141,6 +141,7 @@ function displayWineEvents(county) {
 
 
 	      	var timeTag = $("<p>");
+	      	timeTag.attr("class", "time");
 	      	timeTag.text(moment(localTime).format('LLL'));
 	      	var wineDiv = $("#wine-events");
 	      	wineDiv.append(imgTag);
