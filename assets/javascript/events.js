@@ -117,18 +117,21 @@ function displayWineEvents(county) {
 
 								console.log("Link clicked: " + url);
 
-								var eventData = {
-									title: $(this).attr('data-title'),
-									url: url,
-									localtime: $(this).attr("data-localtime"),
-									price: $(this).attr("data-price"),
-									image: $(this).attr("data-imageurl"),
-									eventId: $(this).attr("data-eventid")
+								var eId = $(this).attr("data-eventid");
+								var eTitle = $(this).attr('data-title');
+								var eUrl = url;
+								var eLocalTime = $(this).attr("data-localtime");
+								var ePrice = $(this).attr("data-price");
+								var eImage = $(this).attr("data-imageurl");
 
-								};
+								//construct the event data
+								var eventData = makeEventData(eId, eTitle, eUrl, eLocalTime, ePrice, eImage);
+
+								//add to record set
+								addEventRecord(eventData);
 
 								//saveto database
-								saveEvent(eventData);
+								saveEvent();
 
 					});
 

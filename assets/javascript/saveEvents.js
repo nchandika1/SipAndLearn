@@ -2,7 +2,8 @@
 
 var database = null;
 
-var currentUser = null;
+//placeholder for non-auth
+var currentUser = {uid: "placeHolderUser"}; //null;
 
 
 //document loded event via jquery
@@ -20,14 +21,14 @@ function initUserEvents() {
 
   $("#logoutButton").on("click", logoutHandler);
 
-  $("#saveEventButton").on("click", saveEventTest);
-
+  //init default empty record set
+  userSavedEvents = initEmptyUserDataObject();
 
   //firebase user logged in/out
-  firebase.auth().onAuthStateChanged(authStateChange);
+  // firebase.auth().onAuthStateChanged(authStateChange);
 
   //login event
-  firebase.auth().getRedirectResult().then(fireBaseLoginEvent).catch(firebaseAuthError);
+  // firebase.auth().getRedirectResult().then(fireBaseLoginEvent).catch(firebaseAuthError);
 
 
   console.log("User events intitialied");
@@ -35,37 +36,22 @@ function initUserEvents() {
 
 }
 
-/**
- * Test Wrapper for save event button - later this will come from
- * click event of another element - confirm
- * @return {[type]} [description]
- */
-function saveEventTest(event) {
-  event.preventDefault();
 
-    let testData = {
-      eventId: 100,
-      eventURL: "This is not a url",
-    };
-
-    saveEvent(testData);
-
-}
 
 /**
  * Save an event
  * @param  {object} eventData [description]
  * @return {[type]}           [description]
  */
-function saveEvent(eventData) {
+function saveEvent() {
 
   if(currentUser !== null) {
 
     if(database !== null) {
 
         let id = currentUser.uid;
-        //save to database as unique record
-        database.ref(id).push(eventData);
+        //save all the user events to the database
+        database.ref(id).push(userSavedEvents);
 
     } else {
       console.warn("Database is null - are you logged in?");
