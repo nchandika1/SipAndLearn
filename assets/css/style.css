@@ -46,7 +46,7 @@ h3 {
 .map {
     width: 450px;
     margin-right: 0 auto;
-    height: 700px;
+    height: 1000px;
 /*    background-size: cover;
 */    margin: 0 auto;
 
@@ -57,34 +57,30 @@ h3 {
 }
 
 
-.MapImage {
-	/*  This file was not found tc 10/29 */
-	/*background-image: url("assets/images/californiawinemap.gif")*/
-}
 
 .sidebar {
 	background-color: #444444;
 }
 
-/*.row {
-	font-color: #fff;
-}*/
 
-
-.col-5 {
+.col-md-5 {
 	background: #eedea3;
 	margin-left: 0 auto;
-	width: 475px;
+	width: 465px;
+	height: 1025px;
 
 }
 
 
-.col-4 {
+.col-md-4 {
 	background: #d6cece;
 	margin-left: 0 auto;
 	height: 0 auto;
 }
 
+.card-title {
+	font-size: 18px;
+}
 
 .space {
 	margin-top: 20px;
@@ -96,4 +92,10 @@ h3 {
 
 .footer {
 	background-color: #000;
+}
+
+.eventImage {
+	width: 200px;
+
+
 }
