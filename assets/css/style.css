@@ -87,6 +87,10 @@ h3 {
 	width: 200px;
 }
 
+#savedEventDisplay {
+	padding: 4px;
+}
+
 .search-header {
 	width: 100%;
 	background-color: lightgray;
@@ -103,9 +107,15 @@ h3 {
 	padding-right: 10px;
 }
 
+.saved-item {
+	display: inline-block;
+	padding-right: 4px;
+	padding-left: 4px;
+	border-right: 1px solid gray;
+}
+
 .recent-links {
 	font-size: small;
-	display: inline-block;
 }
 
 .footer {

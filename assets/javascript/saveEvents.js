@@ -306,7 +306,7 @@ function displaySavedEvent(event) {
   if((typeof event) === "undefined") return;
 
   let eDiv = $("<div>");
-
+  eDiv.attr("class", "saved-item");
   let eurl = $("<a>").text(event.title);
   eurl.attr("class", "recent-links");
   eurl.attr("href", event.url);
@@ -316,8 +316,6 @@ function displaySavedEvent(event) {
   $('#savedEventDisplay').append(eDiv);
 
 }
-
-
 
 
 /**
