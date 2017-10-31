@@ -35,6 +35,9 @@ function initUserEvents() {
 
   if(useAuthenticated) {
 
+      $("#loginButton").show();
+      $("#logoutButton").hide();
+
       currentUser = null;
 
       authenticatedFirstRun = true;
@@ -85,6 +88,8 @@ function saveEvent() {
 
 
   if(useAuthenticated) {
+
+
       console.log("saving event as authenticated user");
       if(currentUser !== null) {
 
@@ -138,10 +143,18 @@ function authStateChange(user) {
       let id = currentUser.uid;
       database.ref(id).on("value",snapShotHandler,changeEventError);
 
+      $("#loginButton").hide();
+      $("#logoutButton").show();
+
     } else {
 
       console.log("No Authenticated User... ");
       //handle state in logout
+
+      $("#loginButton").show();
+      $("#logoutButton").hide();
+
+
     }
 
 
@@ -176,6 +189,15 @@ function firebaseAuthError(error) {
       var errorCode = error.code;
       var errorMessage = error.message;
       console.error("Authentification Error:" + errorCode + " :: " + errorMessage);
+
+      //hide buttons in authneticated
+      if(useAuthenticated) {
+
+        $("#loginButton").show();
+        $("#logoutButton").hide();
+
+      }
+
 
 }
 
