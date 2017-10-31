@@ -104,47 +104,19 @@
     <!--  Firebase Database connection section -->
     <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
     <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBvJD1eAlfKYEEr7iJy8xPURoN73RwBM8o",
+        authDomain: "sipandlearnuserevents.firebaseapp.com",
+        databaseURL: "https://sipandlearnuserevents.firebaseio.com",
+        projectId: "sipandlearnuserevents",
+        storageBucket: "",
+        messagingSenderId: "58169801963"
+      };
+      firebase.initializeApp(config);
 
-			var useAuthenticated = false;
-
-			if(useAuthenticated) {
-
-	      // Initialize Firebase with authenticated version
-	      var config = {
-	        apiKey: "AIzaSyBvJD1eAlfKYEEr7iJy8xPURoN73RwBM8o",
-	        authDomain: "sipandlearnuserevents.firebaseapp.com",
-	        databaseURL: "https://sipandlearnuserevents.firebaseio.com",
-	        projectId: "sipandlearnuserevents",
-	        storageBucket: "",
-	        messagingSenderId: "58169801963"
-	      };
-	      firebase.initializeApp(config);
-	      // google login provider
-	      var provider = new firebase.auth.GoogleAuthProvider();
-
-
-
-			} else {
-
-				  // Initialize Firebase using non-authenticated version
-				  var config = {
-				    apiKey: "AIzaSyD_GmScl6yFRyxsRlyjsBnGEgbs-wVpseY",
-				    authDomain: "sipandlearnnonauth.firebaseapp.com",
-				    databaseURL: "https://sipandlearnnonauth.firebaseio.com",
-				    projectId: "sipandlearnnonauth",
-				    storageBucket: "sipandlearnnonauth.appspot.com",
-				    messagingSenderId: "284743216735"
-				  };
-				  firebase.initializeApp(config);
-
-					
-					//no provider
-					var provider = null;
-
-			}
-
-
-
+      // google login provider
+      var provider = new firebase.auth.GoogleAuthProvider();
 
     </script>
 

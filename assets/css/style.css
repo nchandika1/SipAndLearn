@@ -1,23 +1,17 @@
-
-
-.navbar {
-	background-color: #000000;
-	align-content: center;
-
-}
-
-
 body {
-	/*  This file was not found tc 10/29 */
-	/*background-image: url("assets/images/tweed_@2X.png");*/
-	background-image: url("./../images/wine.jpg");
+	background-image: url("./../images/wine2.jpg");
 }
 
 h1 {
 	color: #888888;
 	font-family: 'Playfair Display', serif;
+}
 
-
+h3 {
+	font-family: 'Muli', sans-serif;
+	padding: 10px;
+	padding-top: 30px;
+	color: #4b0c09;
 }
 
 .container {
@@ -27,46 +21,38 @@ h1 {
 }
 
 .rowspace {
-		flex: 1;
+	flex: 1;
 }
 
+.navbar {
+	background-color: #000000;
+	align-content: center;
 
-
-h3 {
-	font-family: 'Muli', sans-serif;
-	padding: 10px;
-	padding-top: 30px;
-	color: #4b0c09;
 }
-
 .nav-tabs {
 	background: #000000;
+}
+
+#loginButton{
+	margin: 5px;
 }
 
 .map {
     width: 450px;
     margin-right: 0 auto;
     height: 1000px;
-/*    background-size: cover;
-*/    margin: 0 auto;
-
-	/*  This file was not found tc 10/29 */
-    /*background-image: url("assets/images/californiawinemap.gif")*/
-
-
+    margin: 0 auto;
 }
 
 .time {
 	font-size: 11px;
 }
 
-
 .sidebar {
 	background-color: #444444;
 }
 
-
-.col-md-5 {
+.col-md-6 {
 	background: #eedea3;
 	margin-left: 0 auto;
 	width: 465px;
@@ -74,22 +60,20 @@ h3 {
 
 }
 
-
-.col-md-4 {
-	background: #aa947f;
+.col-md-3 {
+	/*background: #aa947f;*/
 	margin-left: 0 auto;
 	height: 0 auto;
+	padding: 5px;
 }
 
 .card-title {
 	font-size: 18px;
 }
 
-
 .transparent{    
 	opacity: 0.7;
 }
-
 
 .space {
 	margin-top: 20px;
@@ -99,12 +83,35 @@ h3 {
 	margin-left: 450px;
 }
 
-.footer {
-	background-color: #000;
-}
-
 .eventImage {
 	width: 200px;
-
-
 }
+
+.search-header {
+	width: 100%;
+	background-color: lightgray;
+}
+
+.viewed-list {
+	width:100%;
+	background-color: teal;
+	height:20px;
+}
+
+.footer {
+	width: 100%;
+}
+
+.footer p {
+	background-color: lightgray;
+	width: 100%;
+	height: 40px;
+	padding: 10px 0;
+	text-align: center;
+	font-weight: bold;
+	font-size: x-small;
+}
+
+
+
+
