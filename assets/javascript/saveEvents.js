@@ -6,6 +6,9 @@ var database = null;
 var anonUser = {uid: "anonymousUser"};
 var currentUser = null;
 var currentUserAuthenticated = false;
+
+var authenticatedFirstRun = true;
+
 /*
   User Saved events
  */
@@ -32,6 +35,10 @@ function initUserEvents() {
 
   if(useAuthenticated) {
 
+      currentUser = null;
+
+      authenticatedFirstRun = true;
+
       //firebase user logged in/out
       firebase.auth().onAuthStateChanged(authStateChange);
 
@@ -41,13 +48,18 @@ function initUserEvents() {
 
   } else {
 
+      $("#loginButton").hide();
+      $("#logoutButton").hide();
+
+
       //use the anonymous user in non-authenticated mode
       currentUser = anonUser;
       //get the database
       database = firebase.database();
 
+      let id = currentUser.uid;
       //attach snapshot handler
-      database.ref().on("value",snapShotHandler,changeEventError);
+      database.ref(id).on("value",snapShotHandler,changeEventError);
 
       //do an initial save event
       //this will actually clear the db of previous events from anon user
@@ -80,7 +92,7 @@ function saveEvent() {
 
             let id = currentUser.uid;
             //save all the user events to the database
-            database.ref(id).push(userSavedEvents);
+            database.ref(id).set(userSavedEvents);
 
         } else {
           console.warn("Database is null - are you logged in?");
@@ -113,7 +125,7 @@ function saveEvent() {
  */
 function authStateChange(user) {
 
-    console.log("firebase auth change event");
+    console.log("firebase authentification change event");
     if (user) {
       // User is signed in.
       let userInfo = user.displayName + ", id: " + user.uid;
@@ -129,7 +141,7 @@ function authStateChange(user) {
     } else {
 
       console.log("No Authenticated User... ");
-      //currentUser = null; //Not sure here....
+      //handle state in logout
     }
 
 
@@ -146,8 +158,7 @@ function fireBaseLoginEvent(result) {
   if (result.credential) {
     // This gives you a Google Access Token. You can use it to access the Google API.
     var token = result.credential.accessToken;
-    // ...
-    console.log("token = " + token);
+
 
   }
   // The signed-in user info.
@@ -199,6 +210,7 @@ function logoutHandler(event) {
     database = null;
     currentUser = null;
     currentUserAuthenticated = false;
+    authenticatedFirstRun = true;
 
   }).catch(function(error) {
     // An error happened.
@@ -219,13 +231,15 @@ function logoutHandler(event) {
  */
 function snapShotHandler(snapshot) {
 
-  console.log("database updated");
+  console.log("---- database updated-----");
+
   //remove all existing rows, but leave header row
     $('#savedEventDisplay').empty();
 
     let shValue = snapshot.val();
    console.log("Snapshot value:");
    console.log(shValue);
+   var doLocalLoad = false;
 
   //  debugger;
     //run through all children
@@ -236,16 +250,22 @@ function snapShotHandler(snapshot) {
      console.log("Child snapshot data:");
      console.log(csdata);
 
-
-     for(let i=1;i<=5;i++) {
-       let ename = "event" + i;
-       let edata = csdata[ename];
-       console.log("displaying event: " + i + " :: " + edata)
-       displaySavedEvent(edata);
+     //do this on fist recieve when authenticated
+     if(useAuthenticated && authenticatedFirstRun) {
+       console.log("authenticatedFirstRun - saving data");
+       addEventRecord(csdata);
      }
+
+     displaySavedEvent(csdata);
 
 
    });
+
+   //turn off flag after loading from db
+   if(useAuthenticated && authenticatedFirstRun) {
+     authenticatedFirstRun = false;
+   }//end if
+
 
 }//end snapShotHandler
 
@@ -266,6 +286,9 @@ function displaySavedEvent(event) {
   $('#savedEventDisplay').append(eDiv);
 
 }
+
+
+
 
 /**
  * Error Handler
