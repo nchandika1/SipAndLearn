@@ -3,8 +3,9 @@
 var database = null;
 
 //placeholder for non-auth
-var currentUser = {uid: "placeHolderUser"}; //null;
-
+var anonUser = {uid: "anonymousUser"};
+var currentUser = null;
+var currentUserAuthenticated = false;
 /*
   User Saved events
  */
@@ -29,12 +30,26 @@ function initUserEvents() {
   //No Return on this!
   initEmptyUserDataObject();
 
+  if(useAuthenticated) {
 
-  //firebase user logged in/out
-  // firebase.auth().onAuthStateChanged(authStateChange);
+      //firebase user logged in/out
+      firebase.auth().onAuthStateChanged(authStateChange);
 
-  //login event
-  // firebase.auth().getRedirectResult().then(fireBaseLoginEvent).catch(firebaseAuthError);
+      //login event
+      firebase.auth().getRedirectResult().then(fireBaseLoginEvent).catch(firebaseAuthError);
+
+
+  } else {
+
+      //use the anonymous user in non-authenticated mode
+      currentUser = anonUser;
+      //get the database
+      database = firebase.database();
+
+      //attach snapshot handler
+      database.ref().on("value",snapShotHandler,changeEventError);
+
+  }
 
 
   console.log("User events intitialied");
@@ -51,26 +66,40 @@ function initUserEvents() {
  */
 function saveEvent() {
 
-  console.log("saving event");
 
-  if(currentUser !== null) {
 
-    if(database !== null) {
+  if(useAuthenticated) {
+      console.log("saving event as authenticated user");
+      if(currentUser !== null) {
 
-        let id = currentUser.uid;
-        //save all the user events to the database
-        database.ref(id).push(userSavedEvents);
+        if(database !== null) {
 
-    } else {
-      console.warn("Database is null - are you logged in?");
-    }
+            let id = currentUser.uid;
+            //save all the user events to the database
+            database.ref(id).push(userSavedEvents);
+
+        } else {
+          console.warn("Database is null - are you logged in?");
+        }
+
+      } else {
+        console.warn("Current user is null (not logged in) - cannot save event.");
+      }
+
 
   } else {
-    console.warn("Current user is null (not logged in) - cannot save event.");
+
+      console.log("saving event as anonymous user");
+      let id = currentUser.uid;
+      //save all the user events to the database
+      database.ref(id).set(userSavedEvents);
+
   }
 
 
-}
+
+
+}//end save event
 
 
 /**
@@ -165,6 +194,7 @@ function logoutHandler(event) {
     console.log("Logout Success!");
     database = null;
     currentUser = null;
+    currentUserAuthenticated = false;
 
   }).catch(function(error) {
     // An error happened.
@@ -189,6 +219,11 @@ function snapShotHandler(snapshot) {
   //remove all existing rows, but leave header row
     $('#savedEventDisplay').empty();
 
+    let shValue = snapshot.val();
+   console.log("Snapshot value:");
+   console.log(shValue);
+
+  //  debugger;
     //run through all children
     snapshot.forEach(function(childSnapshot) {
 
@@ -198,15 +233,35 @@ function snapShotHandler(snapshot) {
      console.log(csdata);
 
 
-     let disp = "Event Id: " + csdata.eventId + ", Event URL : " + csdata.eventURL;
-     let ptag= $("<p>").text(disp);
+     for(let i=1;i<=5;i++) {
+       let ename = "event" + i;
+       let edata = csdata[ename];
+       console.log("displaying event: " + i + " :: " + edata)
+       displaySavedEvent(edata);
+     }
 
-     $('#savedEventDisplay').append(ptag);
 
    });
 
 }//end snapShotHandler
 
+
+function displaySavedEvent(event) {
+
+  //bail if nothign to display
+  if(event === null) return;
+  if((typeof event) === "undefined") return;
+
+  let eDiv = $("<div>");
+
+  let eurl = $("<a>").text(event.title);
+  eurl.attr("href", event.url);
+
+  eDiv.append(eurl);
+
+  $('#savedEventDisplay').append(eDiv);
+
+}
 
 /**
  * Error Handler
