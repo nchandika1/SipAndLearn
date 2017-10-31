@@ -36,7 +36,7 @@ var mapDisplayTemplate = {
          strokeOpacity: 0.8,
          strokeWeight: 1,
          fillColor: '#f1f285',
-         fillOpacity: 0.65
+         fillOpacity: 0.45
 }
 
 
