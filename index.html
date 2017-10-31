@@ -19,70 +19,67 @@
   <!-- Just an image -->
   <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
     <nav class="navbar navbar-light bg-faded">
-      <img class="navbar-brand" src="./assets/images/sip_logo-01.png" width="300" height="100" alt="Sip Learn">
-			
+      <img class="navbar-brand" src="./assets/images/siplogo2final-01.png" alt="Sip Learn">
     </nav>
+    <ul class="nav navbar-nav navbar-right">  
+      <li><button id="loginButton" type="button">Login</button></li>
+      <li><button id="logoutButton" type="button">Logout</button></li>
+    </ul>
   </nav>
 
   <!--Main Body 3 Columns-->
   <div class="container">
     <div class="row space">
-      <div class="col-md-5">
+      <div class="col-md-6">
 				<!-- modified by TomC 10/29/2017 - 'map' id required by google map api -->
           <div id='map' class="map">
-
           </div>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-3">
         <div class="panel-body transparent"> 
-        <div class="card">
-          <h3 class="card-header primary-color white-text">MORE ABOUT WINES</h3>
-          <div class="card-body">
-            <h4 class="card-title">Read More</h4>
-             <div id = "wine-data"></div>
+          <div class="card">
+            <h3 class="card-header primary-color white-text">WINE REGIONS</h3>
+            <div class="card-body">
+              <h4 class="card-title">Read More</h4>
+              <div id = "wine-data"></div>
+            </div>
           </div>
         </div>
       </div>
 
-
-        <!--Table to Dyanimically Pull Wine Data -->
-         
-      </div>
-
+      <!--Table to Dyanimically Pull Wine Data -->         
       <!--Panel-->
       <div class="col-md-3">
         <div class="panel-body transparent"> 
-        <div class="card">
-          <h3 class="card-header primary-color white-text">LOCAL EVENTS</h3>
-          <div class="card-body">
-            <h4 class="card-title">Local Events Near You</h4>
-<!--             <p class="card-text">Showing {0} Results.</p>
- -->						<!-- container div for events tc 10/30 -->
-						<div id="wine-events">Click On May to Show Events  <div>
+          <div class="card">
+            <h3 class="card-header primary-color white-text">LOCAL EVENTS</h3>
+            <div class="card-body">
+              <h4 class="card-title">Local Events Near You</h4>
+						  <div id="wine-events">Click Map to Show Events  </div>
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <!--Footer where saved data is stored -->
-  <footer class="footer">
-    <div class="footer-body">
-      <span class="text">SAVED SEARCHES HERE</span>
-				<!-- added by TomC 10/29/2017 -->
-	      <div id="authControlBox" >
-	            <button id="loginButton" type="button">Login With Google</button>
-							<!-- TODO hide when not logged in -->
-	            <button id="logoutButton" type="button">Logout</button>
-	        </div>
-				<!-- saved event display -->
-				<div id="savedEventDisplay">
-				</div>
-
+    <div class="row">
+      <div class="col-md-12 search-header">
+        <h5>Recently viewed Events</h5>
+      </div>
     </div>
- </footer>
+    <div class="row viewed-list"> 
+      <div class="col-md-2"></div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"></div>
+    </div>
+  </div> <!--Container -->
+  
+  <footer class="footer">
+    <p><em>© Copyright 2017 Sip &amp; Learn, Inc.</em></p>
+  </footer>
 
   <!--JavaScript -->
 	<!-- using local jquery min (not slim - ajax error) tc 10/30 -->
