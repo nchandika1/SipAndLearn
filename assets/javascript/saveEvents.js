@@ -78,7 +78,7 @@ function initUserEvents() {
 /**
  * Save an event
  * @param  {object} eventData [description]
- * @return {[type]}           [description]
+ * @return {undefined}          No Return
  */
 function saveEvent() {
 
@@ -225,7 +225,7 @@ function logoutHandler(event) {
 
 
 /**
- * DB CHange event handler
+ * DB Change event handler
  * @param  {object} snapshot Database event
  * @return {undefined}      NO Return
  */
@@ -251,6 +251,7 @@ function snapShotHandler(snapshot) {
      console.log(csdata);
 
      //do this on fist recieve when authenticated
+     //this pulls the DB data to the local data structure
      if(useAuthenticated && authenticatedFirstRun) {
        console.log("authenticatedFirstRun - saving data");
        addEventRecord(csdata);
@@ -261,7 +262,7 @@ function snapShotHandler(snapshot) {
 
    });
 
-   //turn off flag after loading from db
+   //turn off flag after loading from db on first run
    if(useAuthenticated && authenticatedFirstRun) {
      authenticatedFirstRun = false;
    }//end if
@@ -270,6 +271,12 @@ function snapShotHandler(snapshot) {
 }//end snapShotHandler
 
 
+/**
+ * Display the Saved event
+ * SHow the title and link
+ * @param  {object} event Event Data from DB
+ * @return {undefined}    NO Return
+ */
 function displaySavedEvent(event) {
 
   //bail if nothign to display
