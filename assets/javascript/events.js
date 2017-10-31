@@ -140,7 +140,9 @@ function displayWineEvents(county) {
 	      	imgTag.attr("class", "eventImage");
 
 
+
 	      	var timeTag = $("<p class = 'time'>");
+
 	      	timeTag.text(moment(localTime).format('LLL'));
 	      	var wineDiv = $("#wine-events");
 	      	wineDiv.append(imgTag);
@@ -164,20 +166,21 @@ function displayWineInformation(county) {
 	var searchStr = wine_counties[county][0];
     $.ajax({
         url: "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles=" + searchStr,
-        data: {exchars: 500},
         dataType: "jsonp",
         method: "GET"
     }).done(function(response) {
     	console.log(response);
     	$("#wine-data").empty();
     	$.each(response.query.pages, function(i, item) {
-    		// Hook up HTML code here
-    		// Remove the following code once the correct HTML is in place
-    		
+    		var url = "https://en.wikipedia.org/wiki/" + searchStr;
             var wineDiv = $("#wine-data");
-            wineDiv.append($("<h4>").text(item.title));
+            var aTag = $("<a>");
+            aTag.attr("href", url);
+            aTag.attr("target", "_blank");
+            aTag.html("<h4>" + item.title + "</h4");
+            wineDiv.append(aTag);
     		wineDiv.append(item.extract);
-    		
+
         });
     });
 }
