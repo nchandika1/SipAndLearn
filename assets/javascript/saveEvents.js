@@ -308,8 +308,9 @@ function displaySavedEvent(event) {
   let eDiv = $("<div>");
 
   let eurl = $("<a>").text(event.title);
+  eurl.attr("class", "recent-links");
   eurl.attr("href", event.url);
-
+  eurl.attr("target", "_blank");
   eDiv.append(eurl);
 
   $('#savedEventDisplay').append(eDiv);

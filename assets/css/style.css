@@ -103,6 +103,11 @@ h3 {
 	padding-right: 10px;
 }
 
+.recent-links {
+	font-size: small;
+	display: inline-block;
+}
+
 .footer {
 	width: 100%;
 	margin-top: 5px;
