@@ -1,5 +1,5 @@
 # SipAndLearn
-This application provides interesting information about California wine regions along with local wine events.  
+This application provides interesting information about the geography California wine regions along with local wine events.  
 
 ## Overview
 
