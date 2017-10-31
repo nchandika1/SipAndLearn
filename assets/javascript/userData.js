@@ -1,6 +1,5 @@
 
 
-var userSavedEvents = null;
 
 
 
@@ -18,6 +17,9 @@ var userSavedEvents = null;
            event5: null
     };
 
+    console.log("Intialized empty user data");
+
+
   }//end function
 
 
@@ -29,7 +31,10 @@ var userSavedEvents = null;
  */
   function addEventRecord( eventRecord) {
 
-    let slot = findNextSlot(userData);
+      console.log("Add Event Record:");
+      console.log(userSavedEvents);
+
+    let slot = findNextSlot(userSavedEvents);
 
     //construct data target name
     let slotName = "event" + slot;
@@ -43,7 +48,7 @@ var userSavedEvents = null;
 
 /**
  * Find the next open slot or shift slots as needed
- * @param  {object} userData USers saved events
+ * @param  {object} userData Users saved events
  * @return {number}       Index of slot to store data in
  */
 function findNextSlot(userData) {

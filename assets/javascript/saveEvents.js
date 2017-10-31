@@ -3,8 +3,16 @@
 var database = null;
 
 //placeholder for non-auth
-var currentUser = {uid: "placeHolderUser"}; //null;
+var anonUser = {uid: "anonymousUser"};
+var currentUser = null;
+var currentUserAuthenticated = false;
 
+var authenticatedFirstRun = true;
+
+/*
+  User Saved events
+ */
+var userSavedEvents = null;
 
 //document loded event via jquery
 $(document).ready(initUserEvents);
@@ -22,13 +30,42 @@ function initUserEvents() {
   $("#logoutButton").on("click", logoutHandler);
 
   //init default empty record set
-  userSavedEvents = initEmptyUserDataObject();
+  //No Return on this!
+  initEmptyUserDataObject();
 
-  //firebase user logged in/out
-  // firebase.auth().onAuthStateChanged(authStateChange);
+  if(useAuthenticated) {
 
-  //login event
-  // firebase.auth().getRedirectResult().then(fireBaseLoginEvent).catch(firebaseAuthError);
+      currentUser = null;
+
+      authenticatedFirstRun = true;
+
+      //firebase user logged in/out
+      firebase.auth().onAuthStateChanged(authStateChange);
+
+      //login event
+      firebase.auth().getRedirectResult().then(fireBaseLoginEvent).catch(firebaseAuthError);
+
+
+  } else {
+
+      $("#loginButton").hide();
+      $("#logoutButton").hide();
+
+
+      //use the anonymous user in non-authenticated mode
+      currentUser = anonUser;
+      //get the database
+      database = firebase.database();
+
+      let id = currentUser.uid;
+      //attach snapshot handler
+      database.ref(id).on("value",snapShotHandler,changeEventError);
+
+      //do an initial save event
+      //this will actually clear the db of previous events from anon user
+      saveEvent();
+
+  }
 
 
   console.log("User events intitialied");
@@ -45,24 +82,40 @@ function initUserEvents() {
  */
 function saveEvent() {
 
-  if(currentUser !== null) {
 
-    if(database !== null) {
 
-        let id = currentUser.uid;
-        //save all the user events to the database
-        database.ref(id).push(userSavedEvents);
+  if(useAuthenticated) {
+      console.log("saving event as authenticated user");
+      if(currentUser !== null) {
 
-    } else {
-      console.warn("Database is null - are you logged in?");
-    }
+        if(database !== null) {
+
+            let id = currentUser.uid;
+            //save all the user events to the database
+            database.ref(id).set(userSavedEvents);
+
+        } else {
+          console.warn("Database is null - are you logged in?");
+        }
+
+      } else {
+        console.warn("Current user is null (not logged in) - cannot save event.");
+      }
+
 
   } else {
-    console.warn("Current user is null (not logged in) - cannot save event.");
+
+      console.log("saving event as anonymous user");
+      let id = currentUser.uid;
+      //save all the user events to the database
+      database.ref(id).set(userSavedEvents);
+
   }
 
 
-}
+
+
+}//end save event
 
 
 /**
@@ -72,7 +125,7 @@ function saveEvent() {
  */
 function authStateChange(user) {
 
-    console.log("firebase auth change event");
+    console.log("firebase authentification change event");
     if (user) {
       // User is signed in.
       let userInfo = user.displayName + ", id: " + user.uid;
@@ -88,7 +141,7 @@ function authStateChange(user) {
     } else {
 
       console.log("No Authenticated User... ");
-      //currentUser = null; //Not sure here....
+      //handle state in logout
     }
 
 
@@ -105,8 +158,7 @@ function fireBaseLoginEvent(result) {
   if (result.credential) {
     // This gives you a Google Access Token. You can use it to access the Google API.
     var token = result.credential.accessToken;
-    // ...
-    console.log("token = " + token);
+
 
   }
   // The signed-in user info.
@@ -157,6 +209,8 @@ function logoutHandler(event) {
     console.log("Logout Success!");
     database = null;
     currentUser = null;
+    currentUserAuthenticated = false;
+    authenticatedFirstRun = true;
 
   }).catch(function(error) {
     // An error happened.
@@ -177,10 +231,17 @@ function logoutHandler(event) {
  */
 function snapShotHandler(snapshot) {
 
-  console.log("database updated");
+  console.log("---- database updated-----");
+
   //remove all existing rows, but leave header row
     $('#savedEventDisplay').empty();
 
+    let shValue = snapshot.val();
+   console.log("Snapshot value:");
+   console.log(shValue);
+   var doLocalLoad = false;
+
+  //  debugger;
     //run through all children
     snapshot.forEach(function(childSnapshot) {
 
@@ -189,15 +250,44 @@ function snapShotHandler(snapshot) {
      console.log("Child snapshot data:");
      console.log(csdata);
 
+     //do this on fist recieve when authenticated
+     if(useAuthenticated && authenticatedFirstRun) {
+       console.log("authenticatedFirstRun - saving data");
+       addEventRecord(csdata);
+     }
 
-     let disp = "Event Id: " + csdata.eventId + ", Event URL : " + csdata.eventURL;
-     let ptag= $("<p>").text(disp);
+     displaySavedEvent(csdata);
 
-     $('#savedEventDisplay').append(ptag);
 
    });
 
+   //turn off flag after loading from db
+   if(useAuthenticated && authenticatedFirstRun) {
+     authenticatedFirstRun = false;
+   }//end if
+
+
 }//end snapShotHandler
+
+
+function displaySavedEvent(event) {
+
+  //bail if nothign to display
+  if(event === null) return;
+  if((typeof event) === "undefined") return;
+
+  let eDiv = $("<div>");
+
+  let eurl = $("<a>").text(event.title);
+  eurl.attr("href", event.url);
+
+  eDiv.append(eurl);
+
+  $('#savedEventDisplay').append(eDiv);
+
+}
+
+
 
 
 /**
