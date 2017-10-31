@@ -49,6 +49,10 @@ function initUserEvents() {
       //attach snapshot handler
       database.ref().on("value",snapShotHandler,changeEventError);
 
+      //do an initial save event
+      //this will actually clear the db of previous events from anon user
+      saveEvent();
+
   }
 
 
