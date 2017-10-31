@@ -64,11 +64,10 @@
     </div>
     <div class="row">
       <div class="col-md-12 search-header">
-        <h5>Recently viewed Events</h5>
+        <p>Recently viewed Events...</p>
+        <hr>
+        <div id="savedEventDisplay" style="float: left;"></div>
       </div>
-    </div>
-    <div id='savedEventDisplay' class="row viewed-list">
-
     </div>
   </div> <!--Container -->
 
@@ -117,8 +116,6 @@
 	      // google login provider
 	      var provider = new firebase.auth.GoogleAuthProvider();
 
-
-
 			} else {
 
 				  // Initialize Firebase using non-authenticated version
@@ -137,9 +134,6 @@
 					var provider = null;
 
 			}
-
-
-
 
     </script>
 

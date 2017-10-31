@@ -90,16 +90,22 @@ h3 {
 .search-header {
 	width: 100%;
 	background-color: lightgray;
+	margin-top: 5px;
 }
 
-.viewed-list {
-	width:100%;
-	background-color: teal;
-	height:20px;
+.search-header p {
+	font-weight: bold;
+	font-size: small;
+	padding-top: 10px;
+}
+
+.search-title {
+	padding-right: 10px;
 }
 
 .footer {
 	width: 100%;
+	margin-top: 5px;
 }
 
 .footer p {
