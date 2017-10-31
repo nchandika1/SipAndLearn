@@ -14,22 +14,22 @@ The application supports a user-authenticated version and a non-authenticated ve
 
 #### Google Maps API
 
-[Google Maps](https://developers.google.com/maps/ "Google Maps")
+[Google Maps](https://developers.google.com/maps/ "Google Maps")\s\s
 Google Maps API was used to display the county regions that users can click on to load regional information and local events.
 
 #### Wikipedia API
 
-[Wikipedia](https://www.mediawiki.org/wiki/API:Main_page "Wikipedia")
+[Wikipedia](https://www.mediawiki.org/wiki/API:Main_page "Wikipedia")\s\s
 Wikipedia was used to gather information about the selected region.
 
 #### Eventbrite API
 
-[Eventbrite](https://www.eventbrite.com/developer/v3/ "Eventbrite")
+[Eventbrite](https://www.eventbrite.com/developer/v3/ "Eventbrite")\s\s
 Eventbrite's API was used to locate local wine-related events.
 
 #### Firebase
 
-[Firebase](https://firebase.google.com/ "Firebase")
+[Firebase](https://firebase.google.com/ "Firebase")\s\s
 Firebase was used in both the Authenticated user mode and non-authenticated mode to store and retrive recently viewed events.
 
 
@@ -38,11 +38,11 @@ Firebase was used in both the Authenticated user mode and non-authenticated mode
 
 ## Contributors
 
-[Nagarani Chandika](https://github.com/nchandika1)
+[Nagarani Chandika](https://github.com/nchandika1)\s\s
 Eventbrite & Wikipedia API integration.
 
-[Tom Copple](https://github.com/studiotc)
+[Tom Copple](https://github.com/studiotc)\s\s
 Google Maps API & Firebase Integration
 
-[Chamaine Woffard](https://github.com/Chamaine)
+[Chamaine Woffard](https://github.com/Chamaine)\s\s
 Front End Design
