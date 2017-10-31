@@ -179,7 +179,7 @@ function displayWineInformation(county) {
             aTag.html("<h4>" + item.title + "</h4");
             wineDiv.append(aTag);
     		wineDiv.append(item.extract);
-    		
+
         });
     });
 }
