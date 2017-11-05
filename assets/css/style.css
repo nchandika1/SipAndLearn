@@ -18,6 +18,7 @@ h3 {
 	display: flex;
 	min-height: 100vh;
 	flex-direction: column;
+	width: 100%;
 }
 
 .rowspace {
@@ -61,10 +62,10 @@ h3 {
 }
 
 .col-md-3 {
-	/*background: #aa947f;*/
 	margin-left: 0 auto;
-	height: 0 auto;
+	height: 1025px;
 	padding: 5px;
+	overflow: auto;
 }
 
 .card-title {

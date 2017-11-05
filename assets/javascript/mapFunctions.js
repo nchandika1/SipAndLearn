@@ -98,13 +98,7 @@ function buildMapRegion(region, data, map) {
   //set the map instance for the region
   counties[regionKey].setMap(map);
 
-  //add handler
-  // google.maps.event.addListener(counties[regionKey], 'click', function (event) {
-  //     console.log("County Clicked: ");
-  //     console.log( this.countyName);
-  // });
-
-    google.maps.event.addListener(counties[regionKey], 'click', countyClicked);
+  google.maps.event.addListener(counties[regionKey], 'click', countyClicked);
 
 }//end build mapa region
 
@@ -154,13 +148,3 @@ function countyClicked(event) {
 
 }
 
-//TODO remove these functions when they are implemented by Naga
-/*  dummy functions for displaying the information from a map click */
-// function displayWineEvents(county) {
-//   console.log("Display Wine Events for: " + county);
-// }
-
-/*  dummy functions for displaying the information from a map click */
-// function displayWineInformation(county) {
-//   console.log("Display Wine Information for: " + county);
-// }
